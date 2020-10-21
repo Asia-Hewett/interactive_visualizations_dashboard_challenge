@@ -32,29 +32,5 @@ function dropDown(subjectData) {
     });
 };
 
-// Creating the onclick event handler
-function nextSubject() {
-    
-    // Reference the value selected and assign it to a variable
-    let testSubject = d3.select("#selDataset").property("value");
-
-    //Pull in the data and get the Key(index) for the selected item
-    d3.json("samples.json").then((data) => {
-        let bellyButtonData = data.names;
-        // console.log(bellyButtonData);
-        let subjectIndex = getKeyByValue(bellyButtonData, testSubject)
-        console.log(subjectIndex, testSubject);
-        buildPlots(subjectIndex, testSubject);
-        populateMetaData(subjectIndex, testSubject);
-        }) 
-    
-    //Function to get the key from the data
-    function getKeyByValue(object, value) { 
-        return Object.keys(object).find(key => object[key] === value); 
-    
-    }; 
-    
-};
-
 
 
