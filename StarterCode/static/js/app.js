@@ -6,15 +6,19 @@
 
 // Generating the data for the drop down menu
 
+
+let allSubjectData = [];
+
 d3.json("../../data/samples.json").then((subjectData) => {
     dropDown(subjectData);
-    // console.log(subjectData)
+    allSubjectData = subjectData
+    console.log(allSubjectData)
 });
 
 function dropDown(subjectData) {
     // the data field is subjectData.names (don't forget the 's' at the end of name...)
     let subjectValue = subjectData.names;
-    let dropDown = d3.select("#selDataset");
+    let dropDown = d3.select('#selDataset');
     dropDown.html("");
 
     // dropdown menu to display the top 10 OTUs found in that individual
@@ -22,35 +26,33 @@ function dropDown(subjectData) {
         let selectionName = name;
         let options = dropDown.append("option");
         options.text(selectionName);
-        options.attr("optionChanged", name);
+        options.node().value;
         
     });
 };
 
 // Creating the event handler for the dropdown menu
 
-d3.selectAll("#selDataset").on("change", updatePage);
+d3.selectAll("#selDataset").on("change", updateDropdown);
 
-function updatePage() {
+
+function updateDropdown() {
     let dropDownMenu = d3.selectAll("#selDataset");
-    let sampleValues = dropDownMenu.subjectData.sample_values;
-    let otuIds = dropDownMenu.subjectData.otu_ids;
-    let otuLabels = dropDownMenu.subjectData.otu_labels;
+    let sampleValues = allSubjectData.samples[0].sample_values;
+    let otuIds = allSubjectData.samples[0].otu_ids;
+    let otuLabels = allSubjectData.samples[0].otu_labels;
+    
     console.log(sampleValues);
     console.log(otuIds);
     console.log(otuLabels)
+};
 
-    let trace1 = [{
-        type: 'bar',
-        x: [20, 14, 23],
-        y: ['giraffes', 'orangutans', 'monkeys'],
-        orientation: 'h'
-      }];
-      
-      Plotly.newPlot('bar', data);
+// This is suppose to filter out the top 10 OTUs 
+function personValue(allSubjectData) {
+    return allSubjectData.slice[0, 10];
+    let topOtuLabels = allSubjectData.slice[0, 10];
+};
 
-    Plotly.newPlot();
-}
 
 
 
