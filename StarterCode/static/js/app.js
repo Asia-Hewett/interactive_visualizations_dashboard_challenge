@@ -42,18 +42,22 @@ function updateDropdown() {
     let otuIds = allSubjectData.samples[0].otu_ids;
     let otuLabels = allSubjectData.samples[0].otu_labels;
     
-    console.log(sampleValues);
-    console.log(otuIds);
-    console.log(otuLabels)
-};
+    // console.log(sampleValues);
+    // console.log(otuIds);
+    // console.log(otuLabels)
 
-// This is suppose to filter out the top 10 OTUs 
-function personValue(allSubjectData) {
-    return allSubjectData.slice[0, 10];
-    let topOtuLabels = allSubjectData.slice[0, 10];
-};
+    // This is suppose to filter out the top 10 OTUs 
+    let filteredData = allSubjectData.filter(otuLabels => otuLabels.slice[0, 10] === top10otus);
+      console.log(filteredData);
 
+    // Clearing the previously entered data
+    tbody.html("")
 
+    // Loop that appends data to tables
+    Object.entries(sightingInfo).forEach(([key, value]) => {
+        console.log(key, value);
+        let cell = row.append('td');
+        cell.text(value);
 
-
-
+    });
+}
